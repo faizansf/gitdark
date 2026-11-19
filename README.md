@@ -19,8 +19,8 @@ GitDark gives phpMyAdmin the calm, dense look of a modern code-hosting dashboard
 - **Primer-inspired palette** with a neutral chrome. Icons in the tab bar, breadcrumb and sidebar are muted so links and actions stand out.
 - **Underline tab navigation** with an orange active indicator, and quiet secondary pills.
 - **Boxes and tables** with 6px radii, prominent header bars with a bottom rule, tabular numbers, and tables that span the full content width.
-- **Row actions menu.** On Browse results, Edit, Copy and Delete collapse into a "⋯" menu that opens on hover or keyboard focus. It is CSS only: phpMyAdmin's templates and scripts are untouched, so the delete confirmation and inline cell editing keep working.
-- **Click-anywhere row selection** on the table list under *Database → Structure*. The checkboxes are hidden and the whole row is the target, and *Check all* still works.
+- **Row actions menu.** On Browse results, Edit, Copy and Delete collapse into a "⋯" menu that opens on hover or keyboard focus. It is CSS only: phpMyAdmin's templates and scripts are untouched, so the delete confirmation keeps working.
+- **Click-anywhere row selection** on Browse results and on the table list under *Database → Structure*. The checkboxes are hidden and the whole row is the target. Shift-click selects a range, and *Check all* still works.
 - **Aligned layout.** The sidebar header and the top bar share their dividers, and spacing follows a consistent 4/8 px-based rhythm.
 - **GitHub-dark syntax colors** in the SQL editor, plus restyled dialogs, menus and date picker (jQuery UI).
 
@@ -49,6 +49,8 @@ The compiled stylesheets are included, so no build step is needed to use the the
 | Browsers | Current Chrome, Edge, Firefox 121+, Safari 15.4+ |
 
 The row actions menu and row selection use the CSS `:has()` selector. Older browsers ignore those rules and show phpMyAdmin's standard action links and checkboxes instead.
+
+Because the whole row is the click target in Browse results, phpMyAdmin's double-click inline cell editing and mouse text selection inside cells are replaced by row selection. Edit remains available in the row menu.
 
 The row actions menu applies to the default "left" action layout when Edit, Copy and Delete are all available. In other layouts the standard links are shown.
 

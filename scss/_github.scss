@@ -1228,10 +1228,7 @@ $pma-del: "> td.edit_row_anchor + td + td";
 $pma-menu-w: 184px;
 
 #{$pma-row} {
-  // The row itself must stay un-positioned (no position/transform/contain): phpMyAdmin's inline
-  // cell editor (double-click) measures cells with jQuery .position(), which uses the DOM
-  // offsetParent. A positioned row becomes that parent and the editor lands at the top of the
-  // table. So each of the three action cells anchors its own menu item instead.
+  // Each of the three action cells anchors its own menu item.
   --pma-kebab-w: 2.5rem; // width of the "⋯" cell; Copy/Delete cells sit right after it
   --pma-menu-x: 2px; // menu starts this far inside the "⋯" cell
   --pma-menu-top: 100%; // menu opens below the row...
@@ -1249,14 +1246,18 @@ $pma-menu-w: 184px;
   }
 
   #{$pma-edit} {
+    z-index: 2; // above the row's selection overlay, so hovering the "⋯" opens the menu
     width: var(--pma-kebab-w);
     min-width: var(--pma-kebab-w);
     max-width: var(--pma-kebab-w);
     padding-right: .25rem;
     padding-left: .25rem;
-    cursor: pointer;
+    // only the dots take the pointer; the rest of the cell passes clicks through to row selection
+    pointer-events: none;
 
     &::before {
+      pointer-events: auto;
+      cursor: pointer;
       display: inline-block;
       width: 28px;
       height: 28px;
@@ -1409,6 +1410,60 @@ table.table_results thead th.column_action {
 
   &.marked > :first-child {
     box-shadow: inset 3px 0 0 $gh-accent;
+  }
+
+  // keyboard: Tab onto the (invisible) checkbox, Space toggles it
+  &:has(input.checkall:focus-visible) {
+    outline: 2px solid $gh-focus;
+    outline-offset: -2px;
+  }
+}
+
+// Browse results: the same click-anywhere row selection as the table list. The hidden checkbox is
+// stretched over the whole row; the actions menu and any link in a cell are lifted above it.
+// Trade-off: a click on a data cell now selects the row instead of reaching the cell, so
+// phpMyAdmin's double-click inline cell editor and mouse text selection inside cells give way to
+// row selection (Edit stays available in the "⋯" menu).
+table.table_results tbody tr {
+  position: relative;
+  cursor: pointer;
+
+  // (type attribute too: Bootstrap's checkbox sizing rule is that specific)
+  input[type="checkbox"].checkall {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  // controls keep working
+  a,
+  button,
+  select,
+  input:not(.checkall),
+  label,
+  .ajax {
+    position: relative;
+    z-index: 2;
+  }
+
+  // the checkbox column has nothing left to show, so it is just a gutter for the selection bar.
+  // It must stay wide enough that the header's action cell never pushes extra width into the
+  // "⋯" cell (that would misalign the menu items).
+  > td:has(input.checkall) {
+    width: 2.5rem;
+    min-width: 2.5rem;
+    padding: 0;
+  }
+
+  // (Bootstrap tints "table-active" cells with an inset box-shadow; keep it next to the bar)
+  &.marked > td:first-child {
+    box-shadow: inset 3px 0 0 $gh-accent, inset 0 0 0 9999px var(--bs-table-bg-state, transparent);
   }
 
   // keyboard: Tab onto the (invisible) checkbox, Space toggles it
