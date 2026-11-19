@@ -17,6 +17,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+// phpMyAdmin's JS only adds the sidebar offset (body margin) ~50ms after load, so without
+// this the content first paints under the fixed sidebar and then jumps right. Reserve the
+// space in CSS with the same value the script will set (a no-op for it afterwards).
+@media (min-width: 769px) {
+  body:has(#pma_navigation) {
+    margin-left: $navigation-width;
+  }
+}
+
 ::selection {
   background: rgba($gh-accent, .4);
 }

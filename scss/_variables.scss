@@ -250,7 +250,7 @@ $pma-confirmation-bg:         rgba($gh-danger, .15);
 $selflink-border-color:       $gh-border;
 
 // Navigation
-$navigation-width:            260px;
+$navigation-width:            240px; // = phpMyAdmin default NavigationWidth, so nothing resizes after load
 $navigation-color:            $gh-fg;
 $navigation-bg:               $gh-canvas-subtle;
 $navigation-selected-bg:      rgba($gh-fg-muted, .15);
