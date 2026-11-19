@@ -509,17 +509,17 @@ textarea,
   font-size: $font-size-base;
   line-height: 20px;
   color: $gh-fg;
-  background-color: $gh-canvas-inset;
+  background-color: $gh-input-bg;
   border: 1px solid $gh-border;
   border-radius: $border-radius;
-  box-shadow: inset 0 1px 0 rgba($black, .3);
+  box-shadow: inset 0 1px 0 rgba($black, .2);
 
   &:hover:not(:focus):not(:disabled) {
     border-color: $gh-fg-muted;
   }
 
   &:focus {
-    background-color: $gh-canvas-inset;
+    background-color: $gh-input-bg;
     border-color: $gh-focus;
     outline: 1px solid $gh-focus;
     outline-offset: -1px;
@@ -534,7 +534,7 @@ textarea,
 
 input[type="checkbox"]:not(.form-check-input),
 input[type="radio"]:not(.form-check-input) {
-  background-color: $gh-canvas-inset;
+  background-color: $gh-input-bg;
   border: 1px solid $gh-border;
 
   &:checked {
@@ -733,7 +733,7 @@ div.error {
   font-size: 12px;
   line-height: 1.5;
   color: $gh-fg;
-  background-color: $gh-canvas-inset;
+  background-color: $gh-input-bg;
   border: 1px solid $gh-border;
   border-radius: $border-radius;
 
@@ -1121,7 +1121,7 @@ table.data > :not(caption) > * > * {
     margin: 0;
     padding: 0;
     text-align: left;
-    background: $gh-canvas-inset;
+    background: $gh-input-bg;
     border: 1px solid $gh-border;
     border-bottom: 0;
     border-radius: $border-radius $border-radius 0 0;
