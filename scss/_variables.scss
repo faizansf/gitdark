@@ -1,0 +1,280 @@
+// stylelint-disable scss/dollar-variable-colon-space-after
+// Variables
+// =============================================================================
+// GitDark: a "GitHub dark dimmed"-style UI palette (Primer-like) on top of
+// the Bootstrap 5.3 variables used by phpMyAdmin.
+
+// PMA color system (re-mapped to a cool, blue-tinted gray scale)
+$white: #fff;
+$black: #010409;
+$pma-gray-100: #f0f6fc;
+$pma-gray-200: #e6edf3;
+$pma-gray-300: #c9d1d9;
+$pma-gray-400: #b1bac4;
+$pma-gray-500: #8b949e;
+$pma-gray-600: #6e7681;
+$pma-gray-700: #30363d;
+$pma-gray-800: #161b22;
+$pma-gray-900: #0d1117;
+$pma-gray-100-rgb: 240, 246, 252;
+$pma-gray-200-rgb: 230, 237, 243;
+$pma-gray-300-rgb: 201, 209, 217;
+$pma-gray-400-rgb: 177, 186, 196;
+$pma-gray-500-rgb: 139, 148, 158;
+$pma-gray-600-rgb: 110, 118, 129;
+$pma-gray-700-rgb: 48, 54, 61;
+$pma-gray-800-rgb: 22, 27, 34;
+$pma-gray-900-rgb: 13, 17, 23;
+
+// Primer accents
+$gh-canvas:        #0d1117; // page background
+$gh-canvas-subtle: #161b22; // cards, sidebars, table headers
+$gh-canvas-inset:  #010409; // inputs, code, navigation
+$gh-btn-bg:        #21262d;
+$gh-btn-hover-bg:  #30363d;
+$gh-border:        #30363d;
+$gh-border-muted:  #21262d;
+$gh-header-bg:     #1c2128; // table header bar
+$gh-header-border: #3d444d; // rule under the table header
+$gh-fg:            #e6edf3;
+$gh-fg-muted:      #8b949e;
+$gh-accent:        #2f81f7;
+$gh-link:          #58a6ff;
+$gh-focus:         #1f6feb;
+$gh-success:       #3fb950;
+$gh-success-btn:   #238636;
+$gh-success-btn-hover: #2ea043;
+$gh-danger:        #f85149;
+$gh-attention:     #d29922;
+$gh-done:          #a371f7;
+$gh-sponsors:      #db61a2;
+$gh-severe:        #db6d28;
+$gh-tab-accent:    #f78166;
+
+$pma-blue:    $gh-accent;
+$pma-indigo:  #6610f2;
+$pma-purple:  $gh-done;
+$pma-pink:    $gh-sponsors;
+$pma-red:     $gh-danger;
+$pma-orange:  $gh-severe;
+$pma-cyan:    $gh-link;
+
+// PMA Base Style
+$pma-body-color:              $gh-fg;
+$pma-body-bg:                 $gh-canvas;
+$pma-component-bg:            $gh-canvas-subtle;
+$pma-table-bg:                $gh-canvas;
+$pma-selected-bg:             rgba($gh-accent, .15);
+$pma-fieldset-bg:             $gh-canvas-subtle;
+$pma-border-color:            $gh-border;
+$pma-disable-color:           $pma-gray-600;
+$pma-fieldset-color:          $gh-fg;
+$pma-cond-border-color:       $gh-border;
+$pma-button-color:            $gh-link;
+$pma-link-color:              $gh-link;
+$pma-link-hover-color:        $gh-accent;
+$pma-custom-color:            $gh-severe;
+
+// Typography
+// -----------------------------------------------------------------------------
+$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+$font-family-monospace:       ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+$font-size-base:              .875rem; // 14px, like GitHub
+$line-height-base:            1.5;
+$headings-font-weight:        600;
+$headings-color:              $gh-fg;
+$h1-font-size:                1.75rem;
+$h2-font-size:                1.5rem;
+$h3-font-size:                1.25rem;
+$h4-font-size:                1.0625rem;
+$h5-font-size:                .9375rem;
+$h6-font-size:                .875rem;
+$font-weight-bold:            600;
+
+// Bootstrap variables
+// -----------------------------------------------------------------------------
+// Color system
+$primary:                     $gh-focus;
+$secondary:                   $gh-btn-bg;
+$success:                     $gh-success-btn;
+$info:                        $gh-link;
+$warning:                     $gh-attention;
+$danger:                      $gh-danger;
+$light:                       $gh-canvas-subtle;
+$dark:                        $gh-canvas-inset;
+// Body
+$body-color:                  $pma-body-color;
+$body-bg:                     $pma-body-bg;
+$body-secondary-color:        $gh-fg-muted;
+$body-tertiary-bg:            $gh-canvas-subtle;
+// Links
+$link-color:                  $gh-link;
+$link-decoration:             none;
+$link-hover-color:            $gh-link;
+// Components
+$border-color:                $pma-border-color;
+$border-radius:               .375rem; // 6px
+$border-radius-sm:            .25rem;
+$border-radius-lg:            .5rem;
+$box-shadow:                  0 1px 0 rgba($black, .04);
+$box-shadow-sm:               0 1px 0 rgba($black, .04);
+$box-shadow-lg:               0 8px 24px rgba($black, .6);
+// Typography
+$text-muted:                  $gh-fg-muted;
+// Tables
+$table-color:                 $pma-body-color;
+$table-bg:                    transparent;
+$table-accent-bg:             transparent;
+$table-cell-padding-y:        .4rem;
+$table-cell-padding-x:        .75rem;
+$table-striped-color:         $table-color;
+$table-striped-bg:            rgba($gh-canvas-subtle, .5);
+$table-active-color:          $table-color;
+$table-active-bg:             rgba($gh-accent, .15);
+$table-hover-color:           $table-color;
+$table-hover-bg:              rgba($gh-fg-muted, .12);
+$table-border-color:          $gh-border;
+$table-group-separator-color: $gh-border;
+// Buttons
+$btn-font-weight:             500;
+$btn-padding-y:               .3125rem;
+$btn-padding-x:               1rem;
+$btn-border-radius:           $border-radius;
+$btn-box-shadow:              none;
+$btn-focus-box-shadow:        0 0 0 3px rgba($gh-focus, .4);
+// Forms
+$input-bg:                    $gh-canvas-inset;
+$input-color:                 $gh-fg;
+$input-disabled-bg:           rgba($gh-fg-muted, .1);
+$input-border-color:          $gh-border;
+$input-border-radius:         $border-radius;
+$input-padding-y:             .3125rem;
+$input-padding-x:             .75rem;
+$input-box-shadow:            inset 0 1px 0 rgba($black, .3);
+$input-focus-bg:              $gh-canvas-inset;
+$input-focus-color:           $gh-fg;
+$input-focus-border-color:    $gh-focus;
+$input-focus-box-shadow:      0 0 0 3px rgba($gh-focus, .3);
+$input-placeholder-color:     $gh-fg-muted;
+$input-group-addon-bg:        $gh-btn-bg;
+$input-group-addon-border-color: $gh-border;
+$form-check-input-bg:         $gh-canvas-inset;
+$form-check-input-border:     1px solid $gh-border;
+$form-check-input-checked-bg-color: $gh-focus;
+$form-check-input-checked-border-color: $gh-focus;
+$form-check-input-focus-border: $gh-focus;
+$form-check-input-focus-box-shadow: 0 0 0 3px rgba($gh-focus, .3);
+$form-select-indicator-color: $gh-fg-muted;
+$form-switch-color:           rgba($gh-fg, .75);
+$form-select-bg:              $gh-canvas-inset;
+// Navs
+$nav-link-color:              $gh-fg;
+$nav-link-hover-color:        $gh-fg;
+$nav-tabs-border-color:       $gh-border;
+$nav-tabs-border-radius:      $border-radius;
+$nav-tabs-link-hover-border-color: $gh-border $gh-border $gh-border;
+$nav-tabs-link-active-color:  $gh-fg;
+$nav-tabs-link-active-bg:     $gh-canvas;
+$nav-tabs-link-active-border-color: $gh-border $gh-border $gh-canvas;
+// Dropdowns
+$dropdown-color:              $gh-fg;
+$dropdown-bg:                 $gh-canvas-subtle;
+$dropdown-border-color:       $gh-border;
+$dropdown-border-radius:      .75rem;
+$dropdown-box-shadow:         0 8px 24px rgba($black, .6);
+$dropdown-divider-bg:         $gh-border;
+$dropdown-link-color:         $gh-fg;
+$dropdown-link-hover-color:   $gh-fg;
+$dropdown-link-hover-bg:      rgba($gh-fg-muted, .15);
+$dropdown-link-active-color:  $gh-fg;
+$dropdown-link-active-bg:     rgba($gh-fg-muted, .2);
+// Pagination
+$pagination-color:                 $gh-link;
+$pagination-bg:                    transparent;
+$pagination-border-color:          $gh-border;
+$pagination-focus-bg:              $gh-btn-bg;
+$pagination-hover-color:           $gh-fg;
+$pagination-hover-bg:              $gh-btn-hover-bg;
+$pagination-hover-border-color:    $gh-border;
+$pagination-active-color:          $white;
+$pagination-active-bg:             $gh-focus;
+$pagination-active-border-color:   $gh-focus;
+$pagination-disabled-color:        $pma-disable-color;
+$pagination-disabled-bg:           transparent;
+$pagination-disabled-border-color: $gh-border;
+// Cards
+$card-border-color:           $gh-border;
+$card-cap-bg:                 $gh-canvas-subtle;
+$card-bg:                     $gh-canvas-subtle;
+// Accordion
+$accordion-bg:                  $gh-canvas-subtle;
+$accordion-border-color:        $gh-border;
+$accordion-button-bg:           $gh-canvas-subtle;
+$accordion-button-active-bg:    $gh-canvas-subtle;
+$accordion-button-active-color: $gh-fg;
+$accordion-button-color:        $gh-fg;
+// Badges
+$badge-font-weight:           500;
+$badge-border-radius:         2em;
+// Modals
+$modal-content-bg:            $gh-canvas-subtle;
+$modal-content-color:         $gh-fg;
+$modal-content-border-color:  $gh-border;
+$modal-content-border-radius: .75rem;
+$modal-header-border-color:   $gh-border;
+$modal-footer-border-color:   $gh-border;
+$modal-backdrop-bg:           $gh-canvas-inset;
+$modal-backdrop-opacity:      .7;
+// List group
+$list-group-color:            $gh-fg;
+$list-group-bg:               $gh-canvas-subtle;
+$list-group-border-color:     $gh-border;
+$list-group-hover-bg:         rgba($gh-fg-muted, .12);
+// Close
+$btn-close-color:             $gh-fg;
+$btn-close-white-filter:      none;
+// Breadcrumbs
+$breadcrumb-divider-color:    $gh-fg-muted;
+$breadcrumb-active-color:     $gh-fg-muted;
+
+// PMA variables
+// -----------------------------------------------------------------------------
+
+// Common
+$pma-ajax-bg:                 rgba($gh-attention, .15);
+$pma-ajax-border-color:       rgba($gh-attention, .4);
+$pma-ajax-shadow:             rgba($black, .6);
+$pma-confirmation-color:      $gh-fg;
+$pma-confirmation-bg:         rgba($gh-danger, .15);
+$selflink-border-color:       $gh-border;
+
+// Navigation
+$navigation-width:            260px;
+$navigation-color:            $gh-fg;
+$navigation-bg:               $gh-canvas-subtle;
+$navigation-selected-bg:      rgba($gh-fg-muted, .15);
+$navigation-border-color:     $gh-border;
+$navigation-shadow-color:     $gh-border;
+$navigation-drop-button-bg:   $gh-btn-bg;
+$navigation-resizer-hover-bg: $gh-accent;
+
+// Breadcrumbs
+$breadcrumb-navbar-padding-y:     .5rem;
+$breadcrumb-navbar-padding-x:     1.25rem;
+$breadcrumb-navbar-margin-bottom: 0;
+$breadcrumb-navbar-bg:            $gh-canvas-subtle;
+
+// Buttons
+$btn-outline-secondary:       $gh-fg-muted;
+
+// Console
+$console-color:               $gh-fg;
+$console-toolbar-bg:          $gh-canvas-subtle;
+$console-content-bg:          $gh-canvas;
+$console-message-bg:          $gh-canvas-subtle;
+$console-message-text-bg:     $gh-btn-bg;
+
+// CodeMirror
+$codemirror-bg:               $gh-canvas-inset;
+$codemirror-color:            $gh-fg;
+$codemirror-gutters:          $gh-canvas-subtle;

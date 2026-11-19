@@ -1,0 +1,51 @@
+// Alert (GitHub "flash" style: translucent tint + 1px tinted border)
+
+.alert {
+  --pma-alert-rgb: #{red($gh-link), green($gh-link), blue($gh-link)};
+
+  position: relative;
+  padding: .75rem 1rem;
+  margin-bottom: 1rem;
+  color: $gh-fg;
+  background-color: rgba(var(--pma-alert-rgb), .1);
+  border: 1px solid rgba(var(--pma-alert-rgb), .4);
+  border-radius: $border-radius;
+
+  a {
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .alert-link {
+    font-weight: 600;
+  }
+}
+
+$gh-alert-states: (
+  "primary": $gh-accent,
+  "secondary": $gh-fg-muted,
+  "info": $gh-link,
+  "success": $gh-success,
+  "warning": $gh-attention,
+  "danger": $gh-danger,
+  "light": $gh-fg-muted,
+  "dark": $gh-fg-muted
+);
+
+@each $state, $value in $gh-alert-states {
+  .alert-#{$state} {
+    --pma-alert-rgb: #{red($value), green($value), blue($value)};
+  }
+}
+
+.alert-dismissible {
+  padding-right: 3rem;
+
+  .btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 1rem;
+  }
+}

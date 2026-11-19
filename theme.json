@@ -1,0 +1,8 @@
+{
+    "name": "GitDark",
+    "version": "1.0.0",
+    "description": "GitHub-style dark UI theme for phpMyAdmin",
+    "author": "faizansf (based on BooDark by adorade)",
+    "url": "https://github.com/faizansf/gitdark",
+    "supports": ["5.2"]
+}

@@ -1,0 +1,87 @@
+// CodeMirror
+
+$textarea-cols: 40;
+$textarea-rows: 15;
+
+.CodeMirror {
+  height: 20rem;
+  direction: ltr;
+  color: $codemirror-color;
+  background-color: $codemirror-bg;
+  border: 1px solid $gh-border;
+
+  @include border-radius($card-border-radius);
+
+  &-cursor {
+    border-left: 1px solid $codemirror-color;
+  }
+
+  &-hint {
+    color: $codemirror-color;
+  }
+
+  &-hints {
+    color: $codemirror-color;
+    background: $codemirror-bg;
+    z-index: 1999;
+  }
+
+  &-lint-tooltip {
+    z-index: 200;
+    font-family: inherit;
+
+    code {
+      font-family: monospace;
+      font-weight: bold;
+    }
+  }
+
+  &-gutters {
+    border-right: 1px solid $codemirror-gutters;
+    background-color: $codemirror-gutters;
+  }
+}
+
+#inline_editor_outer .CodeMirror {
+  height: ceil($textarea-rows * .4em);
+}
+
+.insertRowTable .CodeMirror {
+  min-height: ceil($textarea-rows * .6em);
+  min-width: ceil($textarea-cols * .6em);
+  border: 1px solid $gh-border;
+}
+
+#pma_console .CodeMirror-gutters {
+  background-color: initial;
+  border: none;
+}
+
+// CodeMirror: GitHub dark syntax colours (Primer "prettylights")
+.cm-s-default {
+  .cm-keyword, .cm-statement-verb { color: #ff7b72; }
+  .cm-variable { color: #ffa657; }
+  .cm-comment { color: #8b949e; font-style: italic; }
+  .cm-mysql-string { color: #a5d6ff; }
+  .cm-string, .cm-string-2 { color: #a5d6ff; }
+  .cm-operator { color: #ff7b72; }
+  .cm-mysql-word { color: #e6edf3; }
+  .cm-builtin { color: #d2a8ff; }
+  .cm-variable-2 { color: #e6edf3; }
+  .cm-variable-3 { color: #79c0ff; }
+  .cm-separator { color: #8b949e; }
+  .cm-number, .cm-atom { color: #79c0ff; }
+  .cm-def { color: #d2a8ff; }
+  .cm-punctuation { color: #e6edf3; }
+}
+
+.autocomplete-column-name {
+  display: inline-block;
+}
+
+.autocomplete-column-hint {
+  display: inline-block;
+  float: right;
+  color: $gh-fg-muted;
+  margin-left: 1em;
+}

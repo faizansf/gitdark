@@ -1,0 +1,1538 @@
+// GitHub-style UI layer
+// =============================================================================
+// Imported last so it can restyle the phpMyAdmin / Bootstrap components that
+// the rest of the theme still defines in a "classic phpMyAdmin" way.
+
+// Base ------------------------------------------------------------------------
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $gh-fg;
+  background-color: $gh-canvas;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba($gh-accent, .4);
+}
+
+a {
+  color: $gh-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $gh-link;
+    text-decoration: underline;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  color: $gh-fg;
+}
+
+h2,
+.h2 {
+  padding-bottom: .3em;
+  border-bottom: 1px solid $gh-border-muted;
+}
+
+hr {
+  color: $gh-border;
+  opacity: 1;
+}
+
+code,
+kbd,
+samp {
+  padding: .2em .4em;
+  font-family: $font-family-monospace;
+  font-size: 85%;
+  color: $gh-fg;
+  background-color: rgba($gh-fg-muted, .2);
+  border-radius: $border-radius;
+}
+
+pre {
+  padding: 1rem;
+  font-family: $font-family-monospace;
+  font-size: 85%;
+  color: $gh-fg;
+  background-color: $gh-canvas-subtle;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+
+  code {
+    padding: 0;
+    background: transparent;
+  }
+}
+
+// Slim, GitHub-like scrollbars
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba($gh-fg-muted, .4) transparent;
+}
+
+// Top bar: breadcrumb + tab bar -------------------------------------------------
+.breadcrumb-navbar {
+  font-size: $font-size-base;
+  background-color: $gh-canvas-subtle;
+  border-bottom: 0;
+
+  .breadcrumb-item a {
+    font-weight: 600;
+    color: $gh-link;
+  }
+
+  .breadcrumb-item + .breadcrumb-item::before {
+    color: $gh-fg-muted;
+  }
+}
+
+#topmenucontainer,
+#topmenucontainer .navbar,
+.navbar {
+  background-color: $gh-canvas-subtle;
+  border-bottom: 1px solid $gh-border;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+// "Underline nav": the active tab gets a coloured bottom bar instead of a fill
+#topmenu {
+  gap: .25rem;
+
+  .nav-item {
+    position: relative;
+    margin: .5rem 0 0;
+    background: transparent;
+    border-radius: 0;
+
+    &.active,
+    &:hover {
+      background: transparent;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: .25rem;
+      padding: .4375rem .75rem;
+      margin-bottom: .25rem;
+      font-size: $font-size-base;
+      color: $gh-fg;
+      border-radius: $border-radius;
+      transition: background-color .12s ease;
+
+      &:hover,
+      &:focus-visible {
+        color: $gh-fg;
+        text-decoration: none;
+        background-color: rgba($gh-fg-muted, .15);
+      }
+    }
+
+    &.active {
+      // the indicator lives on the <li> so it sits on the bar's bottom border
+      &::after {
+        position: absolute;
+        right: .5rem;
+        bottom: -1px;
+        left: .5rem;
+        height: 2px;
+        content: "";
+        background-color: $gh-tab-accent;
+        border-radius: 6px 6px 0 0;
+      }
+
+      .nav-link {
+        font-weight: 600;
+        color: $gh-fg;
+      }
+    }
+  }
+}
+
+.navbar-light .navbar-nav {
+  .nav-item.active {
+    color: $gh-fg;
+    background-color: transparent;
+  }
+
+  .nav-link {
+    color: $gh-fg;
+
+    &:hover {
+      color: $gh-fg;
+    }
+  }
+}
+
+// Navigation sidebar -------------------------------------------------------------
+#pma_navigation {
+  font-size: $font-size-base;
+  background-color: $gh-canvas-subtle;
+  border-right: 1px solid $gh-border;
+
+  #pmalogo {
+    background-color: $gh-canvas-subtle;
+    border-bottom: 1px solid $gh-border;
+  }
+
+  #navipanellinks {
+    background-color: $gh-canvas-subtle;
+    border-bottom: 1px solid $gh-border;
+
+    a {
+      border-radius: $border-radius;
+
+      &:hover {
+        background-color: rgba($gh-fg-muted, .2);
+      }
+    }
+  }
+
+  a {
+    color: $gh-fg;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  li {
+    border-radius: $border-radius;
+
+    &:hover > a,
+    &:hover > .block {
+      text-decoration: none;
+    }
+  }
+
+  .navigation_node_icon,
+  .icon {
+    opacity: .9;
+  }
+
+  #pma_navigation_resizer {
+    width: 3px;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $gh-accent;
+    }
+  }
+}
+
+// Boxes (fieldsets): a header bar above a bordered body, like a Primer "Box" -------
+.pma-fieldset {
+  padding: .75rem 1rem 1rem;
+  overflow: hidden;
+  background: $gh-canvas;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+
+  .pma-fieldset {
+    margin: .75rem 0;
+    background: $gh-canvas-subtle;
+    border-color: $gh-border;
+  }
+
+  > legend {
+    float: left;
+    width: calc(100% + 2rem);
+    max-width: none;
+    padding: .5rem 1rem;
+    margin: -.75rem -1rem .75rem;
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $gh-fg;
+    background-color: $gh-canvas-subtle;
+    border: 0;
+    border-bottom: 1px solid $gh-border;
+    border-radius: 0;
+
+    // everything after the header bar starts below it - not just the first sibling (that can be
+    // a hidden modal, which left the real content pushed beside the float). Floated siblings
+    // (.formelement, .float-start/end) keep floating next to each other.
+    ~ :not(.modal, .formelement, .float-start, .float-end) {
+      clear: both;
+    }
+  }
+
+  &.tblFooters {
+    border-radius: 0 0 $border-radius $border-radius;
+  }
+}
+
+div.tools {
+  background: $gh-canvas-subtle;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+}
+
+.card {
+  border-radius: $border-radius;
+}
+
+.card-header {
+  font-weight: 600;
+  border-bottom: 1px solid $gh-border;
+}
+
+// Tables ---------------------------------------------------------------------------
+.table {
+  --bs-table-bg: transparent;
+
+  th {
+    font-weight: 600;
+    color: $gh-fg;
+    vertical-align: middle;
+  }
+
+  // Prominent header: lighter bar, stronger text and a clear bottom rule
+  thead th {
+    padding-top: .625rem;
+    padding-bottom: .625rem;
+    font-size: 12px;
+    font-weight: 600;
+    color: $gh-fg;
+    background-color: $gh-header-bg;
+    border-bottom: 1px solid $gh-header-border;
+  }
+
+  tbody th {
+    font-size: inherit;
+    background-color: transparent;
+  }
+
+  th a {
+    color: $gh-fg;
+  }
+
+  td {
+    vertical-align: middle;
+    border-bottom: 1px solid $gh-border-muted;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  &.table-borderless {
+    th,
+    td {
+      border-color: $gh-border-muted;
+    }
+
+    td {
+      border-bottom: 1px solid $gh-border-muted;
+    }
+  }
+
+  // td AND th: the first column is a <th scope=row> and must follow the row's hover colour
+  tbody tr:hover > td,
+  tbody tr:hover > th {
+    background-color: rgba($gh-fg-muted, .08);
+  }
+
+  tr.marked > td,
+  tr.marked > th,
+  tr.odd.marked > td,
+  tr.even.marked > td {
+    background-color: rgba($gh-accent, .15);
+  }
+
+  tbody tr.odd:not(:hover) > td,
+  tbody tr.even:not(:hover) > td,
+  tbody tr.odd:not(:hover) > th,
+  tbody tr.even:not(:hover) > th {
+    background-color: transparent;
+  }
+
+  a {
+    color: $gh-link;
+  }
+}
+
+table.data,
+table.table_results {
+  // `separate` (not `collapse`) is what lets border-radius work on tables
+  border: 1px solid $gh-border;
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: $border-radius;
+
+  // round the outer corner cells themselves (overflow: hidden would break sticky headers)
+  > :first-child > tr:first-child > :first-child {
+    border-top-left-radius: calc(#{$border-radius} - 1px);
+  }
+
+  > :first-child > tr:first-child > th:last-of-type {
+    border-top-right-radius: calc(#{$border-radius} - 1px);
+  }
+
+  > :last-child > tr:last-child > :first-child {
+    border-bottom-left-radius: calc(#{$border-radius} - 1px);
+  }
+
+  > :last-child > tr:last-child > :last-child {
+    border-bottom-right-radius: calc(#{$border-radius} - 1px);
+  }
+}
+
+#tablestructure {
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+}
+
+// Buttons ----------------------------------------------------------------------------
+.btn,
+input[type="submit"],
+input[type="button"],
+button {
+  font-family: inherit;
+  font-size: $font-size-base;
+  font-weight: 500;
+  line-height: 20px;
+  border-radius: $border-radius;
+  transition: background-color .12s cubic-bezier(.3, 0, .5, 1), border-color .12s;
+}
+
+.btn {
+  --bs-btn-border-width: 1px;
+
+  box-shadow: none;
+}
+
+.btn-primary,
+input[type="submit"].btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #{$gh-success-btn};
+  --bs-btn-border-color: rgba(240, 246, 252, .1);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #{$gh-success-btn-hover};
+  --bs-btn-hover-border-color: rgba(240, 246, 252, .1);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #{$gh-success-btn};
+  --bs-btn-active-border-color: rgba(240, 246, 252, .1);
+  --bs-btn-focus-shadow-rgb: 46, 160, 67;
+  --bs-btn-disabled-color: rgba(255, 255, 255, .5);
+  --bs-btn-disabled-bg: #{rgba($gh-success-btn, .6)};
+  --bs-btn-disabled-border-color: rgba(240, 246, 252, .1);
+}
+
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light,
+.btn-default {
+  --bs-btn-color: #{$gh-fg};
+  --bs-btn-bg: #{$gh-btn-bg};
+  --bs-btn-border-color: rgba(240, 246, 252, .1);
+  --bs-btn-hover-color: #{$gh-fg};
+  --bs-btn-hover-bg: #{$gh-btn-hover-bg};
+  --bs-btn-hover-border-color: #{$gh-fg-muted};
+  --bs-btn-active-color: #{$gh-fg};
+  --bs-btn-active-bg: #{rgba($gh-fg-muted, .3)};
+  --bs-btn-active-border-color: #{$gh-fg-muted};
+  --bs-btn-disabled-color: #{$gh-fg-muted};
+  --bs-btn-disabled-bg: #{$gh-btn-bg};
+  --bs-btn-disabled-border-color: rgba(240, 246, 252, .1);
+}
+
+.btn-danger,
+.btn-outline-danger {
+  --bs-btn-color: #{$gh-danger};
+  --bs-btn-bg: #{$gh-btn-bg};
+  --bs-btn-border-color: rgba(240, 246, 252, .1);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #da3633;
+  --bs-btn-hover-border-color: #f85149;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #b62324;
+  --bs-btn-active-border-color: #f85149;
+}
+
+.btn-link {
+  color: $gh-link;
+  background: transparent;
+  border-color: transparent;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.btn:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid $gh-focus;
+  outline-offset: -1px;
+  box-shadow: none;
+}
+
+// Form controls -----------------------------------------------------------------------
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="email"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+select,
+textarea,
+.form-control,
+.form-select {
+  font-family: inherit;
+  font-size: $font-size-base;
+  line-height: 20px;
+  color: $gh-fg;
+  background-color: $gh-canvas-inset;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+  box-shadow: inset 0 1px 0 rgba($black, .3);
+
+  &:hover:not(:focus):not(:disabled) {
+    border-color: $gh-fg-muted;
+  }
+
+  &:focus {
+    background-color: $gh-canvas-inset;
+    border-color: $gh-focus;
+    outline: 1px solid $gh-focus;
+    outline-offset: -1px;
+    box-shadow: none;
+  }
+
+  &:disabled {
+    color: $gh-fg-muted;
+    background-color: rgba($gh-fg-muted, .1);
+  }
+}
+
+input[type="checkbox"]:not(.form-check-input),
+input[type="radio"]:not(.form-check-input) {
+  background-color: $gh-canvas-inset;
+  border: 1px solid $gh-border;
+
+  &:checked {
+    background-color: $gh-focus;
+    border-color: $gh-focus;
+  }
+}
+
+label {
+  font-weight: 600;
+}
+
+.form-check-label,
+.checkall_box + label,
+td > label,
+th > label {
+  font-weight: 400;
+}
+
+.input-group-text {
+  color: $gh-fg-muted;
+  background-color: $gh-btn-bg;
+  border-color: $gh-border;
+}
+
+// Dropdowns / popovers -----------------------------------------------------------------
+.dropdown-menu {
+  padding: .5rem 0;
+  font-size: $font-size-base;
+  background-color: $gh-canvas-subtle;
+  border: 1px solid $gh-border;
+  border-radius: .75rem;
+  box-shadow: 0 8px 24px rgba($black, .6);
+}
+
+.dropdown-item {
+  padding: .3125rem 1rem;
+  margin: 0 .5rem;
+  width: auto;
+  border-radius: $border-radius;
+
+  &:hover,
+  &:focus {
+    background-color: rgba($gh-fg-muted, .15);
+  }
+}
+
+// Pagination ----------------------------------------------------------------------------
+.page-link {
+  font-size: $font-size-base;
+  background-color: transparent;
+  border-color: $gh-border;
+
+  &:hover {
+    text-decoration: none;
+    background-color: $gh-btn-hover-bg;
+  }
+}
+
+.page-item.active .page-link {
+  font-weight: 600;
+  color: #fff;
+  background-color: $gh-focus;
+  border-color: $gh-focus;
+}
+
+// Modals & dialogs ------------------------------------------------------------------------
+.modal-content {
+  background-color: $gh-canvas-subtle;
+  border: 1px solid $gh-border;
+  border-radius: .75rem;
+  box-shadow: 0 8px 24px rgba($black, .6);
+}
+
+.modal-header,
+.modal-footer {
+  background-color: transparent;
+  background-image: none;
+  border-color: $gh-border;
+}
+
+.modal-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-close {
+  filter: invert(1) grayscale(1) brightness(1.5);
+  opacity: .6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Badges / labels ---------------------------------------------------------------------------
+.badge {
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(240, 246, 252, .1);
+}
+
+// Navs inside pages (e.g. settings, pills) -----------------------------------------------
+.nav-tabs {
+  border-bottom: 1px solid $gh-border;
+
+  .nav-link {
+    color: $gh-fg;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+
+    &.active {
+      font-weight: 600;
+      background: transparent;
+      border-bottom-color: $gh-tab-accent;
+    }
+  }
+}
+
+// Notifications ----------------------------------------------------------------------------
+#pma_errors,
+.ajax_notification,
+#loading_parent #loading {
+  font-size: $font-size-base;
+}
+
+.ajax_notification {
+  color: $gh-fg;
+  background: $gh-canvas-subtle;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+  box-shadow: 0 8px 24px rgba($black, .6);
+}
+
+.success,
+.notice,
+.warning,
+.error,
+div.success,
+div.notice,
+div.warning,
+div.error,
+.config-form .error {
+  padding: .75rem 1rem;
+  margin: .75rem 0;
+  color: $gh-fg;
+  border: 1px solid;
+  border-radius: $border-radius;
+  background-image: none;
+}
+
+.success,
+div.success {
+  background: rgba($gh-success, .1);
+  border-color: rgba($gh-success, .4);
+}
+
+.notice,
+div.notice {
+  background: rgba($gh-link, .1);
+  border-color: rgba($gh-link, .4);
+}
+
+.warning,
+div.warning {
+  background: rgba($gh-attention, .1);
+  border-color: rgba($gh-attention, .4);
+}
+
+.error,
+div.error {
+  background: rgba($gh-danger, .1);
+  border-color: rgba($gh-danger, .4);
+}
+
+// Console --------------------------------------------------------------------------------------
+#pma_console {
+  font-family: $font-family-sans-serif;
+
+  .toolbar,
+  .console_message_container {
+    border-color: $gh-border;
+  }
+
+  .content,
+  pre,
+  textarea {
+    font-family: $font-family-monospace;
+  }
+}
+
+// SQL syntax (CodeMirror, Primer dark colours) ------------------------------------------------
+.CodeMirror {
+  font-family: $font-family-monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: $gh-fg;
+  background-color: $gh-canvas-inset;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+
+  .CodeMirror-gutters {
+    background-color: $gh-canvas;
+    border-right: 1px solid $gh-border-muted;
+  }
+
+  .CodeMirror-linenumber {
+    color: $gh-fg-muted;
+  }
+
+  .CodeMirror-cursor {
+    border-left-color: $gh-fg;
+  }
+
+  .CodeMirror-selected {
+    background: rgba($gh-accent, .3);
+  }
+}
+
+// Tooltips / jQuery-UI tooltip
+.ui-tooltip {
+  font-size: 12px;
+  color: $gh-fg;
+  background: $gh-canvas-subtle;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+  box-shadow: 0 8px 24px rgba($black, .6);
+}
+
+// Spacing & rhythm -------------------------------------------------------------------------
+// One 8px-based scale: 4 / 8 / 12 / 16 / 24.
+
+#page_content {
+  min-height: calc(100vh - 140px);
+  padding: 1.25rem 1.5rem 3rem;
+  margin: 0;
+
+  // Bootstrap pages wrap their content in a container: let the page padding do the work
+  > .container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+}
+
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+h2,
+.h2 {
+  padding-bottom: .5rem;
+  font-size: 1.5rem;
+}
+
+h3,
+.h3 {
+  font-size: 1.125rem;
+}
+
+// Icons that sit in front of headings / labels
+h1 .icon,
+h2 .icon,
+h3 .icon,
+h4 .icon {
+  margin: 0 .5rem 0 0;
+  vertical-align: -2px;
+}
+
+.icon {
+  margin: 0 .25rem 0 0;
+  vertical-align: text-bottom;
+}
+
+td .icon,
+th .icon {
+  margin: 0 .25rem 0 0;
+}
+
+hr {
+  margin: 1.5rem 0;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+// Boxes
+.pma-fieldset {
+  margin: 1rem 0 0;
+
+  > :last-child:not(legend) {
+    margin-bottom: 0;
+  }
+
+  .formelement {
+    margin-right: 1rem;
+  }
+
+  .pma-fieldset {
+    margin: 1rem 0;
+  }
+
+  &.tblFooters {
+    margin: 0 0 1rem;
+  }
+}
+
+h2 + .pma-fieldset,
+h3 + .pma-fieldset,
+#page_content > .pma-fieldset:first-child {
+  margin-top: 0;
+}
+
+div.tools {
+  margin: 0 0 1rem;
+  padding: .5rem 1rem;
+}
+
+// Tables
+.table {
+  margin-bottom: 1rem;
+
+  > :not(caption) > * > * {
+    padding: .4375rem .5rem;
+
+    &:first-child {
+      padding-left: .75rem;
+    }
+
+    &:last-child {
+      padding-right: .75rem;
+    }
+  }
+
+  tfoot td,
+  tfoot th {
+    font-weight: 600;
+    border-top: 1px solid $gh-border;
+  }
+}
+
+table.data,
+table.table_results {
+  margin-bottom: 0;
+}
+
+// Sortable headers (tablesorter) were dark-blue on dark
+th.header {
+  color: $gh-fg;
+
+  &:hover {
+    color: $gh-link;
+    text-decoration: none;
+  }
+}
+
+// "Check all / With selected" row under tables
+.selectallarrow {
+  margin: 0 .5rem 0 .25rem;
+}
+
+.with-selected {
+  margin-left: 1.5rem;
+}
+
+// Inline groups of actions (Print, Data dictionary, ...)
+.print_ignore,
+#structure-action-links,
+.d-print-none > a + a {
+  line-height: 2;
+}
+
+#structure-action-links {
+  margin-bottom: 1rem;
+}
+
+// Forms
+.row {
+  --bs-gutter-y: .75rem;
+}
+
+.mb-3,
+.form-group {
+  margin-bottom: 1rem !important;
+}
+
+.form-label,
+.col-form-label {
+  margin-bottom: .375rem;
+}
+
+textarea {
+  padding: .375rem .75rem;
+}
+
+// Sidebar
+#pma_navigation {
+  .drop_list {
+    margin: 0 0 0 .5rem;
+    padding: 0;
+  }
+
+  .pma_quick_warp {
+    margin: .5rem 0 0;
+    padding: 0 .5rem;
+  }
+
+  .drop_button.btn {
+    padding: .25rem .75rem;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  #pma_navigation_tree {
+    margin-left: 0;
+    padding: .25rem .5rem;
+  }
+
+  #pma_navigation_tree li {
+    min-height: 28px;
+
+    > a,
+    > i {
+      height: auto;
+      padding-top: .125rem;
+      padding-bottom: .125rem;
+      padding-left: .375rem;
+      line-height: 24px;
+    }
+
+    > .block {
+      padding: .125rem 0;
+    }
+  }
+
+  #pmalogo {
+    height: auto;
+    padding: .75rem 1rem;
+  }
+
+  #navipanellinks {
+    padding: .375rem .5rem;
+
+    a {
+      padding: 8px 6px;
+    }
+  }
+}
+
+// Top bars
+.breadcrumb-navbar {
+  padding: .625rem 1.5rem;
+  margin: 0;
+}
+
+// Footers / misc blocks that hug the bottom of a page
+#page_content > hr:last-of-type {
+  margin-bottom: 1rem;
+}
+
+// Wide tables scroll inside their own box instead of pushing the whole page sideways
+#tablestructure {
+  display: block;
+  max-width: 100%;
+  margin-right: 0;
+  overflow-x: auto;
+}
+
+.table-responsive {
+  margin-bottom: 1rem;
+}
+
+// Result navigation bars ("Show all | Number of rows | Filter rows | Sort by key")
+table.navigation {
+  display: block;
+  max-width: 100%;
+  margin: 1rem 0;
+
+  // let the controls wrap on narrower pages instead of forcing a sideways scroll
+  tbody {
+    display: block;
+  }
+
+  tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  td {
+    display: block;
+    white-space: normal;
+  }
+
+  .navigation_separator:empty {
+    display: none;
+  }
+
+  background-color: $gh-canvas-subtle;
+  border: 1px solid $gh-border;
+  border-radius: $border-radius;
+
+  td {
+    padding: .5rem .375rem;
+    vertical-align: middle;
+
+    &:first-child {
+      padding-left: .75rem;
+    }
+
+    &:last-child {
+      padding-right: .75rem;
+    }
+  }
+
+  tr {
+    padding: 0;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+
+  input[type="checkbox"] {
+    margin: 0;
+    vertical-align: middle;
+  }
+}
+
+// Checkbox + label pairs everywhere else
+input[type="checkbox"]:not(.form-check-input) + label,
+input[type="radio"]:not(.form-check-input) + label {
+  margin-left: .375rem;
+}
+
+input[type="checkbox"]:not(.form-check-input),
+input[type="radio"]:not(.form-check-input) {
+  margin-top: .25rem;
+  vertical-align: top;
+}
+
+// Collapsed (narrow-window) menu toggle
+.navbar-toggler {
+  margin: .5rem 1rem;
+  padding: .25rem .625rem;
+  border-color: $gh-border;
+  border-radius: $border-radius;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba($gh-focus, .3);
+  }
+}
+
+// Login screen: give the logo room
+.container.login,
+#login_form {
+  h1,
+  .h1 {
+    margin: .5rem 0 1.25rem;
+    border: 0;
+  }
+}
+
+// Dense data tables (table list, results): tighter horizontal padding so more fits on screen
+table.data > :not(caption) > * > * {
+  padding-right: .375rem;
+  padding-left: .375rem;
+}
+
+// Executed-query box + its toolbar: one connected "Box" (code on top, links below)
+.result_query {
+  .sqlOuter {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background: $gh-canvas-inset;
+    border: 1px solid $gh-border;
+    border-bottom: 0;
+    border-radius: $border-radius $border-radius 0 0;
+
+    code,
+    pre,
+    code.sql {
+      display: block;
+      padding: .75rem 1rem;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+    }
+  }
+
+  div.tools {
+    padding: .5rem 1rem;
+    margin: 0 0 1rem;
+    line-height: 1.75;
+    text-align: left;
+    background: $gh-canvas-subtle;
+    border: 1px solid $gh-border;
+    border-radius: 0 0 $border-radius $border-radius;
+    box-shadow: inset 0 1px 0 $gh-border;
+
+    form {
+      display: inline-block;
+      margin-right: .5rem;
+    }
+
+    input[type="checkbox"] {
+      margin: 0 .375rem 0 0;
+      vertical-align: middle;
+    }
+
+    label,
+    input[type="checkbox"] + label {
+      margin: 0;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+  }
+
+  // message above the query
+  > .alert,
+  > .success,
+  > .notice,
+  > .error {
+    margin-bottom: 1rem;
+  }
+}
+
+// Sidebar tree: no hover highlight. phpMyAdmin's JS adds .activePointer to the row under
+// the mouse (and its parents), which tinted the whole expanded database block.
+#pma_navigation #pma_navigation_tree li {
+  &:hover,
+  &.activePointer {
+    color: inherit;
+    background-color: transparent;
+  }
+
+  // the current database/table keeps its highlight, but only on leaf rows - an expanded
+  // database must not tint everything nested inside it
+  &.selected {
+    color: inherit;
+  }
+
+  &.selected:has(li),
+  &.database.selected,
+  &.database.selected.activePointer {
+    background-color: transparent;
+  }
+}
+
+// phpMyAdmin appends an empty placeholder cell to the results header row. No data cell sits
+// under it, so the header bar stuck out past the last column.
+table.table_results thead > tr > td.d-print-none:last-child:has(> span:empty:only-child) {
+  display: none;
+}
+
+// Row actions as a "⋯" menu (CSS only) ---------------------------------------------------------
+// phpMyAdmin renders Edit / Copy / Delete as three separate <td>s (left layout). Their DOM and
+// JS hooks stay untouched: the Edit cell becomes the "⋯" trigger, and the three links are lifted
+// out of the table flow into a small menu that opens under the trigger on hover or keyboard focus.
+// Only applies to the default "left" layout where all three actions exist; otherwise the plain
+// links are kept.
+$pma-row: "table.table_results tbody tr:has(> td.edit_row_anchor + td + td > span > a.delete_row)";
+$pma-edit: "> td.edit_row_anchor";
+$pma-copy: "> td.edit_row_anchor + td";
+$pma-del: "> td.edit_row_anchor + td + td";
+$pma-menu-w: 184px;
+
+#{$pma-row} {
+  // The row itself must stay un-positioned (no position/transform/contain): phpMyAdmin's inline
+  // cell editor (double-click) measures cells with jQuery .position(), which uses the DOM
+  // offsetParent. A positioned row becomes that parent and the editor lands at the top of the
+  // table. So each of the three action cells anchors its own menu item instead.
+  --pma-kebab-w: 2.5rem; // width of the "⋯" cell; Copy/Delete cells sit right after it
+  --pma-menu-x: 2px; // menu starts this far inside the "⋯" cell
+  --pma-menu-top: 100%; // menu opens below the row...
+
+  // ...except for the last rows, so it doesn't run off the bottom of the table
+  &:nth-last-child(-n + 3) {
+    --pma-menu-top: -104px;
+  }
+
+  // the trigger cell
+  #{$pma-edit},
+  #{$pma-copy},
+  #{$pma-del} {
+    position: relative;
+  }
+
+  #{$pma-edit} {
+    width: var(--pma-kebab-w);
+    min-width: var(--pma-kebab-w);
+    max-width: var(--pma-kebab-w);
+    padding-right: .25rem;
+    padding-left: .25rem;
+    cursor: pointer;
+
+    &::before {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      vertical-align: middle;
+      content: "";
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%238b949e'%3E%3Ccircle cx='3' cy='8' r='1.5'/%3E%3Ccircle cx='8' cy='8' r='1.5'/%3E%3Ccircle cx='13' cy='8' r='1.5'/%3E%3C/svg%3E") center / 16px no-repeat;
+      border: 1px solid transparent;
+      border-radius: $border-radius;
+      transition: background-color .12s ease, border-color .12s ease;
+    }
+  }
+
+  &:has(#{$pma-edit}:hover, #{$pma-copy}:hover, #{$pma-del}:hover, #{$pma-edit} a:focus-visible, #{$pma-copy} a:focus-visible, #{$pma-del} a:focus-visible) #{$pma-edit}::before {
+    background-color: $gh-btn-hover-bg;
+    border-color: $gh-border;
+  }
+
+  // the Copy / Delete cells collapse to nothing in the table flow
+  #{$pma-copy},
+  #{$pma-del} {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+  }
+
+  // the three links = the menu items
+  #{$pma-edit} > span,
+  #{$pma-copy} > span,
+  #{$pma-del} > span {
+    position: absolute;
+    left: calc(var(--pma-menu-x) - var(--pma-kebab-w));
+    z-index: 40;
+    box-sizing: border-box;
+    width: $pma-menu-w;
+    padding: 0 4px;
+    pointer-events: none;
+    visibility: hidden;
+    background: $gh-canvas-subtle;
+    border: 1px solid $gh-border;
+    border-top: 0;
+    border-bottom: 0;
+    opacity: 0;
+    transition: opacity .1s ease;
+
+    a {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      height: 32px;
+      padding: 0 .5rem;
+      color: $gh-fg;
+      text-decoration: none;
+      border-radius: $border-radius;
+
+      &:hover,
+      &:focus-visible {
+        color: $gh-fg;
+        background-color: rgba($gh-fg-muted, .18);
+      }
+    }
+  }
+
+  #{$pma-edit} > span {
+    left: var(--pma-menu-x);
+    top: var(--pma-menu-top);
+    height: 36px;
+    padding-top: 4px;
+    border-top: 1px solid $gh-border;
+    border-radius: $border-radius $border-radius 0 0;
+  }
+
+  #{$pma-copy} > span {
+    top: calc(var(--pma-menu-top) + 36px);
+    height: 32px;
+  }
+
+  #{$pma-del} > span {
+    top: calc(var(--pma-menu-top) + 68px);
+    height: 36px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid $gh-border;
+    border-radius: 0 0 $border-radius $border-radius;
+    box-shadow: 0 8px 24px rgba($black, .6);
+
+    a.delete_row {
+      color: $gh-danger;
+    }
+  }
+
+  // open: pointer over the trigger or any item, or keyboard focus on an item
+  &:has(#{$pma-edit}:hover, #{$pma-copy}:hover, #{$pma-del}:hover, #{$pma-edit} a:focus-visible, #{$pma-copy} a:focus-visible, #{$pma-del} a:focus-visible) {
+    #{$pma-edit} > span,
+    #{$pma-copy} > span,
+    #{$pma-del} > span {
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+// The header cell above the (now much narrower) action columns
+table.table_results thead th.column_action {
+  white-space: nowrap;
+}
+
+// Click-anywhere row selection (database structure: the list of tables) ----------------------------
+// The row checkbox is hidden and stretched over its whole row, so a click on any empty part of the
+// row toggles it - phpMyAdmin's own click handler then marks the row, selects ranges with shift, and
+// feeds "With selected:". Every real control in the row is lifted above it and keeps working.
+#tablesForm table.data > tbody > tr {
+  position: relative;
+  cursor: pointer;
+
+  // the checkbox (invisible, but still real: focusable and toggled by the "Check all" box)
+  input[type="checkbox"].checkall {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  // controls stay clickable
+  a,
+  button,
+  select,
+  input:not(.checkall),
+  label,
+  .ajax {
+    position: relative;
+    z-index: 2;
+  }
+
+  // the checkbox column has nothing left to show
+  > td:first-child:has(> input.checkall) {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+  }
+
+  &.marked > td,
+  &.marked > th {
+    background-color: rgba($gh-accent, .15);
+  }
+
+  &.marked > :first-child {
+    box-shadow: inset 3px 0 0 $gh-accent;
+  }
+
+  // keyboard: Tab onto the (invisible) checkbox, Space toggles it
+  &:has(input.checkall:focus-visible) {
+    outline: 2px solid $gh-focus;
+    outline-offset: -2px;
+  }
+}
+
+// Balance pass ------------------------------------------------------------------------------
+// Goal: one accent per job. Orange = where you are, green = the primary action, blue = links.
+// Everything else in the chrome is neutral so nothing competes.
+
+// 1. Chrome icons are neutral (blue icons made every tab and tree row shout)
+$gh-icon-muted: grayscale(1) brightness(.92);
+$gh-icon-bright: grayscale(1) brightness(1.55);
+
+#topmenu .nav-link .icon,
+.breadcrumb-navbar .icon,
+#pma_navigation #pma_navigation_tree .icon,
+#pma_navigation #navipanellinks .icon,
+h1 .icon,
+h2 .icon,
+h3 .icon,
+.pma-fieldset > legend .icon {
+  filter: $gh-icon-muted;
+  transition: filter .12s ease;
+}
+
+#topmenu .nav-item.active .nav-link .icon,
+#topmenu .nav-link:hover .icon,
+#pma_navigation #navipanellinks a:hover .icon {
+  filter: $gh-icon-bright;
+}
+
+// 2. Secondary pills (Table structure / Relation view, Settings sub-nav): quiet selected state,
+//    so they never outshout the orange tab underline
+.nav-pills {
+  gap: .25rem;
+
+  .nav-link {
+    padding: .3125rem .75rem;
+    color: $gh-fg;
+    border-radius: $border-radius;
+
+    &:hover {
+      color: $gh-fg;
+      background-color: rgba($gh-fg-muted, .15);
+    }
+
+    &.active,
+    .show > & {
+      font-weight: 600;
+      color: $gh-fg;
+      background-color: rgba($gh-fg-muted, .25);
+      box-shadow: inset 0 0 0 1px $gh-border;
+    }
+  }
+}
+
+// 3. Data tables use the full width, so their edges line up with the bars and boxes around them
+#tablesForm table.data,
+table.table_results,
+table#tabledatabases {
+  width: 100% !important;
+}
+
+// 4. Leftover "|" separators in the result bars
+table.navigation td:has(> .navigation_separator),
+table.navigation td.navigation_separator {
+  display: none;
+}
+
+// 5. Numbers line up in columns
+.table td,
+.table th,
+.value,
+td.text-end {
+  font-variant-numeric: tabular-nums;
+}
+
+// 6. Sidebar header shares its dividers with the top bar:
+//    logo row = breadcrumb row (41px), icon row = tab row (49px)
+#pma_navigation {
+  #pmalogo {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 41px;
+    padding: 0 1rem;
+
+    img {
+      width: auto;
+      max-height: 24px;
+    }
+  }
+
+  #navipanellinks {
+    display: flex;
+    gap: .125rem;
+    align-items: center;
+    box-sizing: border-box;
+    height: 49px;
+    padding: 0 .5rem;
+    text-align: left;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+    }
+  }
+}
+
+// Links inside boxes follow the global rule: no underline until hover
+.pma-fieldset a,
+.tools a,
+div.tools a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Row-header cells (table names) use the same divider colour as the cells beside them
+.table tbody th {
+  border-bottom: 1px solid $gh-border-muted;
+}
+
+.table tbody tr:last-child > th {
+  border-bottom: 0;
+}
